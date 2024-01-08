@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,61 +6,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-
     <style>
-        .block {
-  display: block;
-  width: 100%;
-  border: none;
-  background-color: #04AA6D;
-  padding: 14px 28px;
-  font-size: 16px;
-  cursor: pointer;
-  text-align: center;
-}
-    </style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
 
+        .navbar {
+            background-color: #04AA6D;
+            overflow: hidden;
+        }
+
+        .navbar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .block {
+            display: block;
+            width: 100%;
+            border: none;
+            background-color: #04AA6D;
+            padding: 14px 28px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            color: white;
+        }
+    </style>
 </head>
 <body>
-<li class="nav-item" >
+<!-- In your HTML file -->
+<div class="navbar">
+    <div class="welcome-container ml-auto">
+        <span class="welcome-text">Welcome, {{ username }}</span>
+        <a href="/logout/" style="float : right;">Logout</a>
+    </div>
+
+</div>
 
 
-          <a href="/formfill/"> <input class="block" type="button" value="Click to fill the form" style="font-family: 'Roboto', sans-serif;" class="d-flex flex-column min-vh-100" ></a><br>
-<!--
-            </li>
 
 
-</body>
-</html>!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Click to fill</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-    <style>
-        .block {
-  display: block;
-  width: 100%;
-  border: none;
-  background-color: #04AA6D;
-  padding: 14px 28px;
-  font-size: 16px;
-  cursor: pointer;
-  text-align: center;
-}
-    </style>
 
-</head>
-<body>
-<li class="nav-item" >
+<!-- Other content for the dashboard goes here -->
 
-
-          <a href="/formfill/"> <input class="block" type="button" value="Click to fill the form" style="font-family: 'Roboto', sans-serif;" class="d-flex flex-column min-vh-100" ></a><br>
-<!--
-            </li>
-
+<div class="button-container">
+    <a href="/formfill/"><input class="submit" type="submit" value="Click to fill the form"></a>
+</div>
 
 </body>
 </html>
