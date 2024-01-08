@@ -1,62 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Logout</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Registration</title>
     <style>
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        .navbar {
-            background-color: #04AA6D;
-            overflow: hidden;
+        * {
+            box-sizing: border-box
         }
 
-        .navbar a {
-            float: left;
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-        }
-
-        .navbar a:hover {
-            background-color: #ddd;
-            color: black;
-        }
-
-        .block {
-            display: block;
+        input[type=text], input[type=email], input[type=password] {
             width: 100%;
-            border: none;
-            background-color: #04AA6D;
-            padding: 14px 28px;
             font-size: 16px;
+            padding: 10px;
+            margin: 5px 0 4px 0;
+            display: inline-block;
+            border: none;
+            background: #f1f1f1;
+        }
+
+        label {
+            font-size: 15px;
+        }
+
+        input[type=text]:focus, input[type=password]:focus, input[type=email]:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+
+        hr {
+            border: 1px solid #f1f1f1;
+            margin-bottom: 25px;
+        }
+
+        .button, .button1 {
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px 20px;
+            margin: 6px 0;
+            border: none;
             cursor: pointer;
-            text-align: center;
+            width: 100%;
+            opacity: 0.9;
+        }
+
+        .button {
+            background-color: rgb(10, 100, 13);
             color: white;
+        }
+
+        .button1 {
+            background-color: rgb(119, 10, 13);
+            color: white;
+        }
+
+        .button:hover, .button1:hover {
+            opacity: 1;
+        }
+
+        .formContainer {
+            padding-right: 360px;
+            padding-left: 360px;
+            padding-bottom: -400px;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+
+        #successMessage {
+            color: green;
+            font-size: 18px;
+            text-align: center;
+            margin-top: 10px;
         }
     </style>
-
-
-
 </head>
 <body>
-<div class="navbar">
-    <div class="welcome-container ml-auto">
-        <span class="welcome-text">Welcome, {{ username }}</span>
+
+<form action="{% url 'register' %}"" method="post" onsubmit="return validateForm()">
+    {% csrf_token %}
+    <div class="formContainer">
+        <h2 style="color:white;text-align:center;background-color:Teal;padding:10px">Registration</h2>
+
+        <input type="text" name="username" id="username" placeholder="Enter Your username"><br>
+        <span id="usernameError" class="error"></span>
+
+        <input type="text" name="first_name" id="firstName" placeholder="Enter Your first_name"><br>
+        <span id="firstNameError" class="error"></span>
+
+        <input type="text" name="last_name" id="lastName" placeholder="Enter Your last_name"><br>
+        <span id="lastNameError" class="error"></span>
+
+        <input type="email" name="email" id="email" placeholder="Enter email"><br>
+        <span id="emailError" class="error"></span>
+
+        <input type="password" name="password" id="password" placeholder="Enter Your password"><br>
+        <span id="passwordError" class="error"></span>
+
+        <input type="password" name="cpassword" id="confirmPassword" placeholder="Confirm password"><br>
+        <span id="confirmPasswordError" class="error"></span>
+
+        <input class="button" type="submit" value="Register"><br>
+        <input class="button1" type="button" value="Login" onclick="window.location.href='/login/'"><br>
+
+
+        <div id="successMessage"></div>
     </div>
+</form>
 
-</div>
+{% for msg in messages %}
+    <h2 style="text-align:center">{{msg}}</h2>
+{% endfor %}
 
+<script>
+    function validateForm() {
+        var username = document.getElementById('username').value;
+        var firstName = document.getElementById('firstName').value;
+        var lastName = document.getElementById('lastName').value;
+        var email = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
+        var confirmPassword = document.getElementById('confirmPassword').value;
 
-    <p><h2>Are you sure you want to logout?</h2><a href="/"> <input class="button" type="button" value="Yes"></a></p>
+        // Reset error messages
+        document.getElementById('usernameError').innerHTML = '';
+        document.getElementById('firstNameError').innerHTML = '';
+        document.getElementById('lastNameError').innerHTML = '';
+        document.getElementById('emailError').innerHTML = '';
+        document.getElementById('passwordError').innerHTML = '';
+        document.getElementById('confirmPasswordError').innerHTML = '';
+        document.getElementById('successMessage').innerHTML = '';
 
+        // Validate username
+        if (username.trim() === '') {
+            document.getElementById('usernameError').innerHTML = 'Please enter your username';
+            return false;
+        }
 
+        // Validate first name
+        if (firstName.trim() === '') {
+            document.getElementById('firstNameError').innerHTML = 'Please enter your first name';
+            return false;
+        }
 
+        // Validate last name
+        if (lastName.trim() === '') {
+            document.getElementById('lastNameError').innerHTML = 'Please enter your last name';
+            return false;
+        }
+
+        // Validate email
+        var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+            document.getElementById('emailError').innerHTML = 'Please enter a valid email address';
+            return false;
+        }
+
+        // Validate password
+        if (password.length < 6) {
+            document.getElementById('passwordError').innerHTML = 'Password must be at least 6 characters long';
+            return false;
+        }
+
+        // Validate confirm password
+        if (confirmPassword !== password) {
+            document.getElementById('confirmPasswordError').innerHTML = 'Passwords do not match';
+            return false;
+        }
+
+        // Display success message
+        document.getElementById('successMessage').innerHTML = 'Registration successful!';
+
+        // Prevent form submission for this example
+        return true;
+    }
+</script>
 
 </body>
 </html>
+
+
