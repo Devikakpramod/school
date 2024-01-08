@@ -72,27 +72,27 @@ text-align:center
 
 </style>
 <body>
-
-<form action="login" method="post">
+    <form name="loginForm" method="post" action="{% url 'login' %} ">
     {% csrf_token %}
     <div class="formContainer">
-        <h2 style="color:black;text-align:center;padding:10px">Login</h2>
+    <h2 style="color:black;text-align:center;padding:10px">Login</h2>
+    <label for="username">Username:</label>
+    <input type="text" name="username" required><br>
+    <label for="password">Password:</label>
+    <input type="password" name="password" required><br>
+    <!--<a href="/form/">-->
+    <!--<input type="submit" value="Login"/-->
+    <li class="nav-item"
 
+            <a href="/form/"><input class="button" type="submit" value="Login"></a>
+        <p>Don't have an account? <a href="/register/">Register</a></p>
 
-    <input type="text" name="username" placeholder="Enter Your username"><br>
-
-    <input type="password" name="password" placeholder="Enter Your password"><br>
-
-        <li class="nav-item">
-          <a href="/form/"> <input class="button" type="button" value="Login"></a><br>
-            <p>Don't have an account? <a href="/register/">Register</a></p>
-
-            </li>
-
-</div>
+        </li>
 </form>
 {% for msg in messages %}
 <h2 class="msg">{{msg}}</h2>
 {% endfor %}
+</div>
 </body>
 </html>
+
