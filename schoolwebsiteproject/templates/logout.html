@@ -4,13 +4,56 @@
     <title>Logout</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .navbar {
+            background-color: #04AA6D;
+            overflow: hidden;
+        }
+
+        .navbar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .block {
+            display: block;
+            width: 100%;
+            border: none;
+            background-color: #04AA6D;
+            padding: 14px 28px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            color: white;
+        }
+    </style>
 
 
 
 </head>
 <body>
+<div class="navbar">
+    <div class="welcome-container ml-auto">
+        <span class="welcome-text">Welcome, {{ username }}</span>
+    </div>
 
-    <p><h2>Are you sure you want to logout?</h2><a href="/"> <input class="button" type="button" value="Logout"></a></p>
+</div>
+
+
+    <p><h2>Are you sure you want to logout?</h2><a href="/"> <input class="button" type="button" value="Yes"></a></p>
 
 
 
